@@ -32,6 +32,7 @@ mux_2_1 mux_0(.input_1(temp_output_mult_0),.input_2(input_2),.select(select),.ou
 mux_2_1 mux_1(.input_1(input_2),.input_2(temp_output_adder_2),.select(select),.out(temp_input_mult_0));
 mux_2_1 mux_2(.input_1(temp_output_adder_2),.input_2(temp_output_mult_0),.select(select),.out(output_2));
 assign output_1 = temp_output_adder_1;
+assign temp_input_adder_1 = input_1;
 //=========================================================== core structure end
 
 endmodule
