@@ -33,8 +33,8 @@ mult mult_1(.Operand_1(temp_input_mult_2),.Operand_2(input_twiddle_2),.output_mu
 
 //=========================================================== core structure begin
 mux_2_1 mux_0(.input_1(input_1),.input_2(temp_output_adder_1),.select(select),output(temp_input_mult_1));
-mux_2_1 mux_1(.input_1(input_1),.input_2(temp_output_mult_1),.select(select),output(temp_input_adder_1));
-mux_2_1 mux_2(.input_1(input_2),.input_2(temp_output_mult_2),.select(select),output(temp_input_adder_2));
+mux_2_1 mux_1(.input_1(temp_output_mult_1),.input_2(input_1),.select(select),output(temp_input_adder_1));
+mux_2_1 mux_2(.input_1(temp_output_mult_2),.input_2(input_2),.select(select),output(temp_input_adder_2));
 mux_2_1 mux_3(.input_1(input_2),.input_2(temp_output_adder_2),.select(select),output(temp_input_mult_2));
 mux_2_1 mux_4(.input_1(temp_output_adder_1),.input_2(temp_output_mult_1),.select(select),output(output_1));
 mux_2_1 mux_5(.input_1(temp_output_adder_2),.input_2(temp_output_mult_2),.select(select),output(output_2));
