@@ -1,5 +1,5 @@
-
-
+# radix 2 algo
+# blom ada output for each stage 
 
 def bit_reverse(value, bit_size):
     reversed_value = 0
@@ -39,13 +39,11 @@ def inverse_ntt(a, n, q, w):
     return [(x * inv_n) % q for x in a]
 
 # Example usage
-q = 7681  # Example prime p = k * 2^n + 1
-n = 4     # Length of the input, must be a power of 2
+q = 7681  # Example prime 
+n = 4     # Length of the input, power of 2
+w = 3383  # Example primitive n-th root of unity modulo q
 
-# Directly specify the primitive n-th root of unity
-w = 3383  # Example primitive n-th root of unity modulo p
-
-a = [1, 2, 3, 4]  # Example input array
+a = [1, 2, 3, 4]  # Example input 
 ntt_result = ntt(a.copy(), n, q, w)
 inverse_ntt_result = inverse_ntt(ntt_result.copy(), n, q, w)
 
