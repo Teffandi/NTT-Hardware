@@ -1,5 +1,5 @@
 
-module mux_2_1 #(`include "radix_4_parameter.vh")(
+module mux_2_1 #(`include "parameter.vh")(
     
    input [width-1:0] input_1, 
    input [width-1:0] input_2,

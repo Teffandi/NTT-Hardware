@@ -1,5 +1,5 @@
 
-module mult #(`include "radix_4_parameter.vh")(
+module mult #(`include "parameter.vh")(
 input [width-1:0] Operand_1,
 input [width-1:0] Operand_2,
 output[width-1:0] output_mult
