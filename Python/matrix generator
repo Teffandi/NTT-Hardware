@@ -1,0 +1,50 @@
+import numpy as np
+
+matrix = np.zeros((int(4), int(4)))
+def generate_matrix(N, prime):
+    possible_primitive = []
+    verified_primitive = []
+    possible_primitive_negative = []
+
+    def primitive_search(prime):
+        for i in range(2, prime):
+            if pow(i, N) % prime == 1:
+                possible_primitive.append(i)
+
+    def primitive_verification(possible_primitive, prime, N):
+        for scan in range(0, len(possible_primitive)):
+            temp = int(possible_primitive[scan])
+            for root_iterate in range(1, N):
+                if pow(temp, root_iterate) % prime == 1:
+                    break
+            else:
+                verified_primitive.append(temp)
+
+    def primitive_search_negative(prime, selected_primitive_positive):
+        for i in range(2, prime):
+            if pow(i, 2) % prime == selected_primitive_positive:
+                possible_primitive_negative.append(i)
+
+    primitive_search(prime)
+    primitive_verification(possible_primitive, prime, N)
+
+    selected_primitive_positive = verified_primitive[0]  # Automatically select the first verified primitive root
+
+    primitive_search_negative(prime, selected_primitive_positive)
+
+    selected_primitive_negative = possible_primitive_negative[0]  # Automatically select the first negative primitive root
+    
+    #generating coeffient
+    for row in range(0,N):
+        for col in range(0,N):
+            matrix[row][col]= pow(selected_primitive_negative, 2*(row*col)+col) % prime
+            col=col+1
+        row=row+1
+    
+    return matrix
+
+def print_matrix(N):
+    for i in range(0, N):
+        for j in range(0, N):
+            print(int(matrix[i][j]), end=' ')
+        print()
