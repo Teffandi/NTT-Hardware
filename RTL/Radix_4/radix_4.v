@@ -25,10 +25,10 @@ wire [width-1:0] temp_output_adder_2;
 wire [width-1:0] temp_output_adder_3;
 wire [width-1:0] temp_output_adder_4;
 
-assign temp_output_adder_1 = temp_input_adder_1 + temp_input_adder_2 + temp_input_adder_3 + temp_input_adder_4;
-assign temp_output_adder_2 = temp_input_adder_1 - temp_input_adder_2 - temp_input_adder_3 + temp_input_adder_4;
-assign temp_output_adder_3 = temp_input_adder_1 - temp_input_adder_2 + temp_input_adder_3 - temp_input_adder_4;
-assign temp_output_adder_4 = temp_input_adder_1 + temp_input_adder_2 - temp_input_adder_3 - temp_input_adder_4;
+assign temp_output_adder_1 = temp_input_adder_1 + temp_input_adder_2*w2 + temp_input_adder_3*w3 + temp_input_adder_4*w4;
+assign temp_output_adder_2 = temp_input_adder_1 - temp_input_adder_2*w3 - temp_input_adder_3*w2 + temp_input_adder_4*w1;
+assign temp_output_adder_3 = temp_input_adder_1 - temp_input_adder_2*w1 + temp_input_adder_3*w2 - temp_input_adder_4*w3;
+assign temp_output_adder_4 = temp_input_adder_1 + temp_input_adder_2*w3 - temp_input_adder_3*w2 - temp_input_adder_4*w3;
 //=========================================================== butterfly structure end
 
 
