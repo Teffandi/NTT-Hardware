@@ -1,1 +1,9 @@
 parameter width = 16
+parameter w1= 1,
+parameter w2= 1925,
+parameter w3= 3383,
+parameter w4= 6468,
+parameter w5= 1,
+parameter w6= 1925,
+parameter w7= 3383,
+parameter w8= 6468
