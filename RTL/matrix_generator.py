@@ -31,7 +31,6 @@ primitive_verification(possible_primitive,prime,N)
 print(verified_primitive)
 
 # selected_primitive_positive = int(input("enter primitive number selected :")) #input selected primitive generated from list (PWC primitive)
-
 selected_primitive_positive = 3383
 
 #searching for NWC primitive
@@ -47,34 +46,59 @@ primitive_search_negative(prime,selected_primitive_positive)
 print(possible_primitive_negative)
 # selected_primitive_negative = int(input("enter negative primitive number selected :")) #input selected primitive generated from list (PWC primitive)
 selected_primitive_negative = 1925
-
-check_result = []
-check_result.append(pow(selected_primitive_negative,1) % prime)
-check_result.append(pow(selected_primitive_negative,0) % prime)
-check_result.append(pow(selected_primitive_negative,2) % prime)
-check_result.append(pow(selected_primitive_negative,3) % prime)
-
-print(f'Check Result:')
-print(check_result)
+#scaling inverse
+inv_N = pow(N,-1,prime)
 
 #generating matrix 
-# matrix = np.zeros((int(N),int(N)))
-matrix = [[1]*N for i in range(0,N)]
+matrix = np.zeros((int(N),int(N)))
+inv_matrix = np.zeros((int(N),int(N)))
+#scaling inverse
+inv_N = pow(N,-1,prime)
+
+
 #generating coeffient
 for row in range(0,N):
     for col in range(0,N):
-        power = (2*(row*col)+col) % (2*N)       # Periodicity
+        power = (2*(row*col)+col) % (2*N)       # Periodicity      
 
         if (power//N) % 2 == 1:                 # Symmetricity
             power = power % N
-            matrix[row][col] *= -1
+            matrix[row][col] = -1
+            inv_matrix[col][row] = -1           # Handle inverse NTT Matrix
+        else:
+            matrix[row][col] = 1
+            inv_matrix[col][row] = 1            # Handle inverse NTT Matrix
 
-        matrix[row][col] *= pow(selected_primitive_negative,power)%prime
+        matrix[row][col] *= pow(selected_primitive_negative,power) % prime
+        inv_matrix[col][row] *=  pow(selected_primitive_negative,-power,prime)  # Handle inverse NTT Matrix
 
         col=col+1
     row=row+1
 
-print(f'Result:')
-for row in range(0,N):
-    print(matrix[row])
+
+check_result = []
+check_result.append(pow(selected_primitive_negative,0) % prime)
+check_result.append(pow(selected_primitive_negative,1) % prime)
+check_result.append(pow(selected_primitive_negative,2) % prime)
+check_result.append(pow(selected_primitive_negative,3) % prime)
+
+check_result_inv = []
+check_result_inv.append(pow(selected_primitive_negative,-0,prime))
+check_result_inv.append(pow(selected_primitive_negative,-1,prime))
+check_result_inv.append(pow(selected_primitive_negative,-2,prime))
+check_result_inv.append(pow(selected_primitive_negative,-3,prime))
+
+print(f'[INFO] Check Result Non Inverse:')
+print(check_result)
+
+print(f'[INFO] Result Non Inverse:')
+print(matrix)
+
+print(f'[INFO] Check Result Inverse:')
+print(check_result_inv)
+
+print(f'[INFO] Inverse Result Before Scaling:')
+print(inv_matrix)
+print(f'[INFO] Inverse Result After Scaling:')
+print((inv_matrix * inv_N) % prime)
 
