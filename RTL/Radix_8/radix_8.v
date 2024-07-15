@@ -1,5 +1,5 @@
 
-module radix_4 #(`include "parameter.vh")(
+module radix_8 #(`include "parameter.vh")(
    input [width-1:0] input_1, 
    input [width-1:0] input_2,
    input [width-1:0] input_3,
