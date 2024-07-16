@@ -1,0 +1,2 @@
+testbench\modulo_tb.v
+RTL\modulo.v

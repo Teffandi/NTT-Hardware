@@ -1,0 +1,94 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "C:\PROGRA~1\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\PROGRA~1\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\PROGRA~1\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\PROGRA~1\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\PROGRA~1\iverilog\lib\ivl\va_math.vpi";
+S_000002467b15a2e0 .scope module, "modulo_tb" "modulo_tb" 2 3;
+ .timescale -9 -12;
+P_000002467b196480 .param/l "width" 0 2 3, +C4<00000000000000000000000000100000>;
+v000002467b172e80_0 .var "in", 31 0;
+v000002467b172f20_0 .net "out", 31 0, L_000002467b1ef850;  1 drivers
+S_000002467b15a870 .scope begin, "$ivl_for_loop0" "$ivl_for_loop0" 2 32, 2 32 0, S_000002467b15a2e0;
+ .timescale -9 -12;
+v000002467b1732f0_0 .var/i "i", 31 0;
+S_000002467b15e7c0 .scope begin, "$ivl_for_loop1" "$ivl_for_loop1" 2 39, 2 39 0, S_000002467b15a2e0;
+ .timescale -9 -12;
+v000002467b15b630_0 .var/i "i", 31 0;
+S_000002467b15e950 .scope module, "uut" "modulo" 2 21, 3 1 0, S_000002467b15a2e0;
+ .timescale -9 -12;
+    .port_info 0 /INPUT 32 "in";
+    .port_info 1 /OUTPUT 32 "out";
+P_000002467b1961c0 .param/l "width" 0 3 1, +C4<00000000000000000000000000100000>;
+L_000002467b1ef8f8 .functor BUFT 1, C4<0000000000000000>, C4<0>, C4<0>, C4<0>;
+v000002467b15a470_0 .net/2u *"_ivl_11", 15 0, L_000002467b1ef8f8;  1 drivers
+v000002467b15aa00_0 .net *"_ivl_6", 15 0, L_000002467b173100;  1 drivers
+v000002467b15eae0_0 .net "in", 31 0, v000002467b172e80_0;  1 drivers
+v000002467b15eb80_0 .net "lsb", 15 0, L_000002467b173060;  1 drivers
+v000002467b172d40_0 .net "msb", 15 0, L_000002467b172fc0;  1 drivers
+v000002467b172de0_0 .net "out", 31 0, L_000002467b1ef850;  alias, 1 drivers
+L_000002467b172fc0 .part v000002467b172e80_0, 16, 16;
+L_000002467b173060 .part v000002467b172e80_0, 0, 16;
+L_000002467b173100 .arith/sub 16, L_000002467b173060, L_000002467b172fc0;
+L_000002467b1ef850 .concat8 [ 16 16 0 0], L_000002467b173100, L_000002467b1ef8f8;
+    .scope S_000002467b15a2e0;
+T_0 ;
+    %vpi_call 2 31 "$display", "Testing value < 65537" {0 0 0};
+    %fork t_1, S_000002467b15a870;
+    %jmp t_0;
+    .scope S_000002467b15a870;
+t_1 ;
+    %pushi/vec4 7, 0, 32;
+    %store/vec4 v000002467b1732f0_0, 0, 32;
+T_0.0 ;
+    %load/vec4 v000002467b1732f0_0;
+    %cmpi/s 65537, 0, 32;
+    %jmp/0xz T_0.1, 5;
+    %load/vec4 v000002467b1732f0_0;
+    %store/vec4 v000002467b172e80_0, 0, 32;
+    %delay 1000, 0;
+    %vpi_call 2 35 "$display", "%d mod 65537 = %d", v000002467b172e80_0, v000002467b172f20_0 {0 0 0};
+    %load/vec4 v000002467b1732f0_0;
+    %muli 3, 0, 32;
+    %store/vec4 v000002467b1732f0_0, 0, 32;
+    %jmp T_0.0;
+T_0.1 ;
+    %end;
+    .scope S_000002467b15a2e0;
+t_0 %join;
+    %delay 1000, 0;
+    %vpi_call 2 38 "$display", "\012Testing value > 65537" {0 0 0};
+    %fork t_3, S_000002467b15e7c0;
+    %jmp t_2;
+    .scope S_000002467b15e7c0;
+t_3 ;
+    %pushi/vec4 65546, 0, 32;
+    %store/vec4 v000002467b15b630_0, 0, 32;
+T_0.2 ;
+    %load/vec4 v000002467b15b630_0;
+    %cmpi/s 65636, 0, 32;
+    %jmp/0xz T_0.3, 5;
+    %load/vec4 v000002467b15b630_0;
+    %store/vec4 v000002467b172e80_0, 0, 32;
+    %delay 1000, 0;
+    %vpi_call 2 42 "$display", "%d mod 65537 = %d", v000002467b172e80_0, v000002467b172f20_0 {0 0 0};
+    %load/vec4 v000002467b15b630_0;
+    %addi 4, 0, 32;
+    %store/vec4 v000002467b15b630_0, 0, 32;
+    %jmp T_0.2;
+T_0.3 ;
+    %end;
+    .scope S_000002467b15a2e0;
+t_2 %join;
+    %vpi_call 2 45 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "testbench\modulo_tb.v";
+    "RTL\modulo.v";
