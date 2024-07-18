@@ -1,5 +1,7 @@
 # Number Theoritic Transform
-this repo aim to implement NTT algorithm into radix 2,4 and 16 core
+
+## Goals
+this repo aim to implement NTT algorithm into radix 2,4 and 8 core. The core will be used to proccess N-th point input, where it is expected to support up to 2^18 point. 
 
 
 ## Running Testbench
