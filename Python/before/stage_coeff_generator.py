@@ -4,7 +4,7 @@ from colorama import Fore
 from colorama import Style
 
 
-N = 4           # Change base on input point
+N = 8           # Change base on input point
 prime = 7681    # Change prime Q
 
 possible_primitive=[]       # List of possible n-th root of unity
@@ -46,7 +46,7 @@ inv_power = [[0]*N for i in range(N)]
 inv_N = pow(N,-1,prime)
 
 # Generating bare matrix
-def bare_matrix():
+def bare_matrix(N):
     global matrix, inv_matrix, power, inv_power, inv_N
     matrix = [[0]*N for i in range(N)]
     inv_matrix = [[0]*N for i in range(N)]
@@ -65,10 +65,10 @@ def bare_matrix():
                 matrix[row][col] = 1
                 inv_matrix[col][row] = 1
 
-def matrix_gen(num):
+def matrix_gen(num,N):
     # num = 0 to output as string
     global matrix, inv_matrix, power, inv_power, inv_N
-    bare_matrix()
+    bare_matrix(N)
     if num == 0:
         for row in range(0,N):
             for col in range(0,N):
@@ -110,8 +110,8 @@ stages_val = [[0]*(N//radix) for i in range(num_of_stage)]
 stages = [['' for i in range(num_of_stage)] for i in range(N)]
 
 
-def stage_coeff():
-    bare_matrix()
+def stage_coeff(N):
+    bare_matrix(N)
     print(f'''{Fore.GREEN}[INFO] {Style.RESET_ALL}Printing value of twiddle factor for all row.
 Each row in the matrix shows stages incrementally
 ======================================================''')
@@ -155,29 +155,51 @@ Each row in the matrix shows stages incrementally
         print(f'{Fore.CYAN}Row {row} {Style.RESET_ALL}:')
 
         for col in range(num_of_stage):
-            print(f'{Fore.MAGENTA}[STAGE {col}] {Style.RESET_ALL}{stages[row][col]}')
+            print(f'{Fore.MAGENTA}[STAGE {col+1}] {Style.RESET_ALL}{stages[row][col]}')
 
 
     print(f'{Fore.GREEN}[INFO] {Style.RESET_ALL}Printing Finished')
 
 
-bare_matrix()
-print(f'{Fore.GREEN}[INFO] {Style.RESET_ALL}Bare Non Inverse:')
-print(np.matrix(matrix))
+
+prime_moduli = 65537
+degree = 2
+print(f'{Fore.GREEN}[INFO] {Style.RESET_ALL}Possible primitve n-th root of unity :')
+primitive_search(prime_moduli)
+print(possible_primitive)
+print()
+print(f'{Fore.GREEN}[INFO] {Style.RESET_ALL}Verified primitve n-th root of unity :')
+primitive_verification(possible_primitive,prime_moduli,4)
+print(verified_primitive)
+print()
+if(verified_primitive):
+    selected_primitive_negative = verified_primitive[0]
+print(f'{Fore.GREEN}[INFO] {Style.RESET_ALL}Primitve 2n-th root of unity :')
+primitive_search_negative(prime_moduli,selected_primitive_positive)
+print(possible_primitive_negative)
+
+
+# bare_matrix()
+# print(f'{Fore.GREEN}[INFO] {Style.RESET_ALL}Bare Non Inverse:')
+# print(np.matrix(matrix))
 
 print()
-matrix_gen(0)
-print(f'{Fore.GREEN}[INFO] {Style.RESET_ALL}Result Non Inverse:')
+print(f'{Fore.GREEN}[INFO] {Style.RESET_ALL}Twiddle Factor Matrix :')
+matrix_gen(1,8)
+# print(f'{Fore.GREEN}[INFO] {Style.RESET_ALL}Result Non Inverse:')
 print(np.matrix(matrix))
 # print()
 # print(f'{Fore.GREEN}[INFO] {Style.RESET_ALL}Result Inverse:')
 # print(np.matrix(inv_matrix))
 
 
-print()
-matrix_gen(1)
-print(f'{Fore.GREEN}[INFO] {Style.RESET_ALL}Result Non Inverse With Value {selected_primitive_negative}:')
-print(np.matrix(matrix))
+# print()
+# matrix_gen(1)
+# print(f'{Fore.GREEN}[INFO] {Style.RESET_ALL}Result Non Inverse With Value {selected_primitive_negative}:')
+# print(np.matrix(matrix))
 
-print()
-stage_coeff()
+# print()
+# stage_coeff()
+
+
+print(np.matrix(power))

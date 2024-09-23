@@ -1,5 +1,5 @@
 
-import matrix_generator 
+import Python.matrix_generator as matrix_generator 
 
 n = int(input("Enter N-point: "))
 prime = int(input("enter prime number used :"))  # input prime number

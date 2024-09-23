@@ -92,7 +92,7 @@ print(f'[INFO] Check Result Non Inverse:')
 print(check_result)
 
 print(f'[INFO] Result Non Inverse:')
-print(matrix)
+print(matrix.astype(int))
 
 print(f'[INFO] Check Result Inverse:')
 print(check_result_inv)
