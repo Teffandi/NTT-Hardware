@@ -38,7 +38,6 @@ def Radix_2_NTT(A, N, q, psi,stage):
 
 
 def Radix_2_INTT(A,N,q,psi,stage):
-    N_inv = pow(N,-1,q)
     T = [0]*2
     J = 2**stage
     w = pow(psi, -1*N//(2*J),q)

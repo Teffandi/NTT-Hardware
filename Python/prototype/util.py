@@ -51,3 +51,8 @@ def benchmark(A,B,N,q):
     
     return E[1]
 
+def scaling_factor(A,n_inv,q):
+    for scan in range(0,len(A)):
+        A[scan]= (A[scan]*n_inv)%q
+
+     

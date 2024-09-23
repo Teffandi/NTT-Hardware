@@ -111,11 +111,11 @@ def Radix_8_NTT(A, N, q, psi, w_8th,stage):
     return A
 
 
-def Radix_8_INTT(A,N,q,psi,w_8th,n_inv,stage):
+def Radix_8_INTT(A,N,q,psi,w_8th,stage):
     B = [0]*8 #8 point bit reversed from A
     T = [0]*8
     R = [0]*8    
-    J = 8**p
+    J = 8**stage
     w = pow(psi, -1*N // (8*J), q)
     for k in range(0,N //(8*J)):
         for j in range(0,J):
