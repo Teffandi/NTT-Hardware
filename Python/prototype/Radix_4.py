@@ -58,7 +58,8 @@ def Radix_4_NTT(A, N, q, psi, w_4th,stage):
 
 def Radix_4_INTT(A,N,q,psi,w_4th,stage): # Radix 4 for INTT (w and psi is inverse)
     T = [0]*4           
-    J = int(4**stage)
+    # J = int(round(4**stage,0))
+    J = stage
     w = pow(psi, -1*N // (4 * J), q)  # Compute w^(N / (4 * J)) mod q
     for k in range(0,int((N/(4*J)))):
         for j in range(0,J):
@@ -68,11 +69,10 @@ def Radix_4_INTT(A,N,q,psi,w_4th,stage): # Radix 4 for INTT (w and psi is invers
             idx_2J = idx + 2*J
             idx_3J = idx + 3*J
 
-
-
             w_1j1 = pow(w, 2*j+1, q)
             w_2j1 = pow(w, 2*(2*j+1), q)
             w_3j1 = pow(w, 3*(2*j+1), q)
+
 
             T[0] = ((( A[idx] + A[idx_2J] ))%q)
             T[1] = ((( A[idx] - A[idx_2J] ))%q)

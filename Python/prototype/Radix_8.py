@@ -115,7 +115,8 @@ def Radix_8_INTT(A,N,q,psi,w_8th,stage):
     B = [0]*8 #8 point bit reversed from A
     T = [0]*8
     R = [0]*8    
-    J = 8**stage
+    # J = int(round(8**stage,0))
+    J = stage
     w = pow(psi, -1*N // (8*J), q)
     for k in range(0,N //(8*J)):
         for j in range(0,J):
@@ -137,7 +138,6 @@ def Radix_8_INTT(A,N,q,psi,w_8th,stage):
             idx_5J = idx + 5*J #5
             idx_6J = idx + 6*J #6
             idx_7J = idx + 7*J #7
-            
             
             #first stage
 
