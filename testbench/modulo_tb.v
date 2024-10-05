@@ -1,12 +1,17 @@
 `timescale 1ns/1ps
 
-module modulo_tb #(parameter width = 32)();
+module modulo_tb ();
+	/****************************************************************************
+    * Parameter
+    ***************************************************************************/
+	parameter width = 18;
+	parameter m = 16;
 
    /****************************************************************************
     * Signals
     ***************************************************************************/
 
-   reg [width-1:0] in;
+   reg signed [2*m+2:0] in;
    wire [width-1:0] out;
 
    /****************************************************************************
@@ -18,9 +23,9 @@ module modulo_tb #(parameter width = 32)();
     * Instantiate Modules
     ***************************************************************************/
 
-   modulo uut (
-      .in		(in),
-      .out  	(out)
+   modulo #(.WIDTH(width), .m(m)) uut (
+      .input_mod		(in),
+      .output_mod  	(out)
    );
 
    /****************************************************************************
@@ -28,40 +33,28 @@ module modulo_tb #(parameter width = 32)();
     ***************************************************************************/
 
    initial begin
-		$display ("Testing value < 65537");
-      for (integer i=7; i < 65537; i = i * 3) begin
-			in = i;
-			#1;
-			$display ("%b (%d) mod 65537 = %b (%d)", in, in, out, out);
-		end
+		$dumpfile("wave.vcd");
+		$dumpvars(0,modulo_tb);
 
-		#1 $display ("\nTesting value >= 65536");
-		for (integer i=65536; i < 65546; i = i + 1) begin
-			in = i;
-			#1;
-			$display ("%b (%d) mod 65537 = %b (%d)", in, in, out, out);
-		end
+		in = 0;
+		#1;
+		$display ("%b (%d) mod 65537 = %b (%d)", in, in, out, out);
 
-		#1 $display ("\nTesting value >= 131073");
-		for (integer i=131073; i < 131078; i = i + 1) begin
-			in = i;
-			#1;
-			$display ("%b (%d) mod 65537 = %b (%d)", in, in, out, out);
-		end
+		in = 65537;
+		#1;
+		$display ("%b (%d) mod 65537 = %b (%d)", in, in, out, out);
 
-		#1 $display ("\nTesting negative values > -65534");
-		for (integer i=0; i > -10; i = i - 1) begin
-			in = i;
-			#1;
-			$display ("%b (%d) mod 65537 = %b (%d)", i, i, out, out);
-		end
+		in = 65540;
+		#1;
+		$display ("%b (%d) mod 65537 = %b (%d)", in, in, out, out);
 
-		#1 $display ("\nTesting negative values from -65535");
-		for (integer i=-65535; i > -65546; i = i - 1) begin
-			in = i;
-			#1;
-			$display ("%b (%d) mod 65537 = %b (%d)", i, i, out, out);
-		end
+		in = -1;
+		#1;
+		$display ("%b (%d) mod 65537 = %b (%d)", in, in, out, out);
+
+		in = -48577;
+		#1;
+		$display ("%b (%d) mod 65537 = %b (%d)", in, in, out, out);
 
       $finish;
 
