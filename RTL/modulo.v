@@ -3,14 +3,14 @@
 //where data is between -2**2m and 2**2m
 // this code is implemented as 2**16+1 fermat prime
 
-module modulo #(parameter WIDTH = 18,
-                parameter m = 16)(
+module modulo #(parameter WIDTH = 18)(
 
-   input [2*m+2:0] input_mod, 
+   input [2*WIDTH:0] input_mod, 
    output reg [WIDTH-1:0] output_mod
 
 );
 parameter prime = 65537; //prime
+parameter m = 16;
 
 wire [WIDTH-1:0] temp_signal;
 assign temp_signal = input_mod[m-1:0] - (input_mod>>m);
