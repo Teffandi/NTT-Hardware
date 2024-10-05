@@ -4,15 +4,15 @@ module modulo_tb ();
 	/****************************************************************************
     * Parameter
     ***************************************************************************/
-	parameter width = 18;
+	parameter WIDTH = 18;
 	parameter m = 16;
 
    /****************************************************************************
     * Signals
     ***************************************************************************/
 
-   reg signed [2*m+2:0] in;
-   wire [width-1:0] out;
+   reg signed [2*WIDTH-1:0] in;
+   wire [WIDTH-1:0] out;
 
    /****************************************************************************
     * Generate Clock Signals
@@ -23,7 +23,7 @@ module modulo_tb ();
     * Instantiate Modules
     ***************************************************************************/
 
-   modulo #(.WIDTH(width), .m(m)) uut (
+   modulo #(.WIDTH(WIDTH)) uut (
       .input_mod		(in),
       .output_mod  	(out)
    );
@@ -53,6 +53,10 @@ module modulo_tb ();
 		$display ("%b (%d) mod 65537 = %b (%d)", in, in, out, out);
 
 		in = -48577;
+		#1;
+		$display ("%b (%d) mod 65537 = %b (%d)", in, in, out, out);
+
+      in = 123085;
 		#1;
 		$display ("%b (%d) mod 65537 = %b (%d)", in, in, out, out);
 
