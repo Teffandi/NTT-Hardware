@@ -81,10 +81,10 @@ Radix_2 #(.WIDTH(WIDTH)) Radix_3_1 (.input_1(output_Radix_3_1_0),.input_2(output
 Radix_2 #(.WIDTH(WIDTH)) Radix_4_1 (.input_1(output_Radix_3_2_0),.input_2(output_Radix_4_2_0),.output_1(output_Radix_4_1_1),.output_2(output_Radix_4_2_1));
 
 //third stage
-Radix_2 #(.WIDTH(WIDTH)) Radix_1_0 (.input_1(output_Radix_1_1_1),.input_2(output_Radix_3_1_1),.output_1(output_Radix_1_1_2),.output_2(output_Radix_1_2_2)); 
-Radix_2 #(.WIDTH(WIDTH)) Radix_2_0 (.input_1(output_Radix_1_2_1),.input_2(output_Radix_3_2_1),.output_1(output_Radix_2_1_2),.output_2(output_Radix_2_2_2)); 
-Radix_2 #(.WIDTH(WIDTH)) Radix_3_0 (.input_1(output_Radix_2_1_1),.input_2(output_Radix_4_1_1),.output_1(output_Radix_3_1_2),.output_2(output_Radix_3_2_2)); 
-Radix_2 #(.WIDTH(WIDTH)) Radix_4_0 (.input_1(output_Radix_2_2_1),.input_2(output_Radix_4_2_1),.output_1(output_Radix_4_1_2),.output_2(output_Radix_4_2_2)); 
+Radix_2 #(.WIDTH(WIDTH)) Radix_1_2 (.input_1(output_Radix_1_1_1),.input_2(output_Radix_3_1_1),.output_1(output_Radix_1_1_2),.output_2(output_Radix_1_2_2)); 
+Radix_2 #(.WIDTH(WIDTH)) Radix_2_2 (.input_1(output_Radix_1_2_1),.input_2(output_Radix_3_2_1),.output_1(output_Radix_2_1_2),.output_2(output_Radix_2_2_2)); 
+Radix_2 #(.WIDTH(WIDTH)) Radix_3_2 (.input_1(output_Radix_2_1_1),.input_2(output_Radix_4_1_1),.output_1(output_Radix_3_1_2),.output_2(output_Radix_3_2_2)); 
+Radix_2 #(.WIDTH(WIDTH)) Radix_4_2 (.input_1(output_Radix_2_2_1),.input_2(output_Radix_4_2_1),.output_1(output_Radix_4_1_2),.output_2(output_Radix_4_2_2)); 
 
 assign output_1 = output_Radix_1_1_2;
 assign output_2 = output_Radix_1_2_2;
