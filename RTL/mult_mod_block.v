@@ -4,8 +4,8 @@ input [WIDTH-1:0] input_1,
 input [WIDTH-1:0] input_2,
 input [WIDTH-1:0] weight_1,
 input [WIDTH-1:0] weight_2,
-input [WIDTH-1:0] output_1,
-input [WIDTH-1:0] output_2
+output [WIDTH-1:0] output_1,
+output [WIDTH-1:0] output_2
 
 );
 
