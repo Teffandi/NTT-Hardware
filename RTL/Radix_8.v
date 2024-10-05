@@ -1,5 +1,5 @@
 
-module Radix_2 #(parameter WIDTH = 18)(
+module Radix_8  #(parameter WIDTH = 18)(
 input [WIDTH-1:0] input_1,
 input [WIDTH-1:0] input_2,
 input [WIDTH-1:0] weight_1,
