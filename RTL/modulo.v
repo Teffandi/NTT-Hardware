@@ -5,7 +5,7 @@
 
 module modulo #(parameter WIDTH = 18)(
 
-   input [2*WIDTH:0] input_mod, 
+   input [2*WIDTH-1:0] input_mod, 
    output reg [WIDTH-1:0] output_mod
 
 );
