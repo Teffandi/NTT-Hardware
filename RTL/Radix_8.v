@@ -53,6 +53,15 @@ wire [WIDTH-1:0] output_Radix_3_1_1;
 wire [WIDTH-1:0] output_Radix_3_2_1;
 wire [WIDTH-1:0] output_Radix_4_1_1;
 wire [WIDTH-1:0] output_Radix_4_2_1;
+//for third stage
+wire [WIDTH-1:0] output_Radix_1_1_2;
+wire [WIDTH-1:0] output_Radix_1_2_2;
+wire [WIDTH-1:0] output_Radix_2_1_2;
+wire [WIDTH-1:0] output_Radix_2_2_2;
+wire [WIDTH-1:0] output_Radix_3_1_2;
+wire [WIDTH-1:0] output_Radix_3_2_2;
+wire [WIDTH-1:0] output_Radix_4_1_2;
+wire [WIDTH-1:0] output_Radix_4_2_2;
 
 //first stage 
 // radix naming : Radix_coreNumber_stage
@@ -63,15 +72,15 @@ Radix_2 #(.WIDTH(WIDTH)) Radix_4_0 (.input_1(input_7),.input_2(input_8),.output_
 
 //second stage
 Radix_2 #(.WIDTH(WIDTH)) Radix_1_1 (.input_1(output_Radix_1_1_0),.input_2(output_Radix_2_1_0),.output_1(output_Radix_1_1_1),.output_2(output_Radix_1_2_1)); 
-Radix_2 #(.WIDTH(WIDTH)) Radix_2_1 (.input_1(output_Radix_1_2_0),.input_2(output_Radix_2_2_0),.output_1(output_Radix_2_1_0),.output_2(output_Radix_2_1_1)); 
-Radix_2 #(.WIDTH(WIDTH)) Radix_3_1 (.input_1(input_4),.input_2(input_5),.output_1(output_Radix_3_1_0),.output_2(output_Radix_3_2_0)); 
-Radix_2 #(.WIDTH(WIDTH)) Radix_4_1 (.input_1(input_6),.input_2(input_7),.output_1(output_Radix_4_1_0),.output_2(output_Radix_4_2_0));
+Radix_2 #(.WIDTH(WIDTH)) Radix_2_1 (.input_1(output_Radix_1_2_0),.input_2(output_Radix_2_2_0),.output_1(output_Radix_2_1_1),.output_2(output_Radix_2_2_1)); 
+Radix_2 #(.WIDTH(WIDTH)) Radix_3_1 (.input_1(output_Radix_3_1_0),.input_2(output_Radix_4_1_0),.output_1(output_Radix_3_1_1),.output_2(output_Radix_3_2_1)); 
+Radix_2 #(.WIDTH(WIDTH)) Radix_4_1 (.input_1(output_Radix_3_2_0),.input_2(output_Radix_4_2_0),.output_1(output_Radix_4_1_1),.output_2(output_Radix_4_2_1));
 
 //third stage
-Radix_2 #(.WIDTH(WIDTH)) Radix_1_0 (.input_1(input_1),.input_2(input_2),.output_1(output_Radix_1_1_0),.output_2(output_Radix_1_2_0)); 
-Radix_2 #(.WIDTH(WIDTH)) Radix_2_0 (.input_1(input_3),.input_2(input_4),.output_1(output_Radix_2_1_0),.output_2(output_Radix_2_2_0)); 
-Radix_2 #(.WIDTH(WIDTH)) Radix_3_0 (.input_1(input_5),.input_2(input_6),.output_1(output_Radix_3_1_0),.output_2(output_Radix_3_2_0)); 
-Radix_2 #(.WIDTH(WIDTH)) Radix_4_0 (.input_1(input_7),.input_2(input_8),.output_1(output_Radix_4_1_0),.output_2(output_Radix_4_2_0)); 
+Radix_2 #(.WIDTH(WIDTH)) Radix_1_0 (.input_1(output_Radix_1_1_1),.input_2(output_Radix_3_1_1),.output_1(output_Radix_1_1_2),.output_2(output_Radix_1_2_2)); 
+Radix_2 #(.WIDTH(WIDTH)) Radix_2_0 (.input_1(output_Radix_1_2_1),.input_2(output_Radix_3_2_1),.output_1(output_Radix_2_1_2),.output_2(output_Radix_2_2_2)); 
+Radix_2 #(.WIDTH(WIDTH)) Radix_3_0 (.input_1(output_Radix_2_1_1),.input_2(output_Radix_4_1_1),.output_1(output_Radix_3_1_2),.output_2(output_Radix_3_2_2)); 
+Radix_2 #(.WIDTH(WIDTH)) Radix_4_0 (.input_1(output_Radix_2_2_1),.input_2(output_Radix_4_2_1),.output_1(output_Radix_4_1_2),.output_2(output_Radix_4_2_2)); 
 
 
 endmodule
