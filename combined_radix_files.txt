@@ -1,6 +1,5 @@
-testbench\radix8_tb_combined.v
+testbench\combined_radix_tb.v
 RTL\Combined_radix.v
-RTL\Radix_2.v
 RTL\modulo.v
 RTL\mult.v
 RTL\mult_mod_block.v

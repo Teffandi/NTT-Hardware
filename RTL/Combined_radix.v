@@ -92,6 +92,14 @@ wire [WIDTH-1:0] psi_6_temp_INTT;
 wire [WIDTH-1:0] psi_7_temp_INTT;
 wire [WIDTH-1:0] psi_8_temp_INTT;
 
+// Psi Temporrary for NTT or INTT on second Stage
+wire [WIDTH-1:0] psi_3_stage2;
+wire [WIDTH-1:0] psi_4_stage2;
+
+// Psi Temporrary for NTT or INTT on Third Stage
+wire [WIDTH-1:0] psi_1_stage3;
+wire [WIDTH-1:0] psi_2_stage3;
+
 
 //temporary output
 wire [WIDTH-1:0] output_1_temp;
@@ -123,15 +131,22 @@ Radix_2 #(.WIDTH(WIDTH)) Radix_4_0 (.input_1(input_7),.input_2(input_8),.weight_
 //second stage
 Radix_2 #(.WIDTH(WIDTH)) Radix_1_1 (.input_1(output_Radix_1_1_0),.input_2(output_Radix_2_1_0),.weight_1(18'd1),.weight_2(18'd1),.output_1(output_Radix_1_1_1),.output_2(output_Radix_1_2_1)); 
 Radix_2 #(.WIDTH(WIDTH)) Radix_2_1 (.input_1(output_Radix_1_2_0),.input_2(output_Radix_2_2_0),.weight_1(18'd1),.weight_2(w_2_8),.output_1(output_Radix_2_1_1),.output_2(output_Radix_2_2_1)); 
-Radix_2 #(.WIDTH(WIDTH)) Radix_3_1 (.input_1(output_Radix_3_1_0),.input_2(output_Radix_4_1_0),.weight_1(18'd1),.weight_2(18'd1),.output_1(output_Radix_3_1_1),.output_2(output_Radix_3_2_1)); 
-Radix_2 #(.WIDTH(WIDTH)) Radix_4_1 (.input_1(output_Radix_3_2_0),.input_2(output_Radix_4_2_0),.weight_1(18'd1),.weight_2(w_2_8),.output_1(output_Radix_4_1_1),.output_2(output_Radix_4_2_1));
+Radix_2 #(.WIDTH(WIDTH)) Radix_3_1 (.input_1(output_Radix_3_1_0),.input_2(output_Radix_4_1_0),.weight_1(18'd1),.weight_2(psi_3_stage2),.output_1(output_Radix_3_1_1),.output_2(output_Radix_3_2_1)); 
+Radix_2 #(.WIDTH(WIDTH)) Radix_4_1 (.input_1(output_Radix_3_2_0),.input_2(output_Radix_4_2_0),.weight_1(18'd1),.weight_2(psi_4_stage2),.output_1(output_Radix_4_1_1),.output_2(output_Radix_4_2_1));
 
 //third stage
 Radix_2 #(.WIDTH(WIDTH)) Radix_1_2 (.input_1(output_Radix_1_1_1),.input_2(output_Radix_3_1_1),.weight_1(18'd1),.weight_2(18'd1),.output_1(output_Radix_1_1_2),.output_2(output_Radix_1_2_2)); 
-Radix_2 #(.WIDTH(WIDTH)) Radix_2_2 (.input_1(output_Radix_2_1_1),.input_2(output_Radix_4_1_1),.weight_1(18'd1),.weight_2(w_1_8),.output_1(output_Radix_2_1_2),.output_2(output_Radix_2_2_2)); 
+Radix_2 #(.WIDTH(WIDTH)) Radix_2_2 (.input_1(output_Radix_2_1_1),.input_2(output_Radix_4_1_1),.weight_1(18'd1),.weight_2(psi_1_stage3),.output_1(output_Radix_2_1_2),.output_2(output_Radix_2_2_2)); 
 Radix_2 #(.WIDTH(WIDTH)) Radix_3_2 (.input_1(output_Radix_1_2_1),.input_2(output_Radix_3_2_1),.weight_1(18'd1),.weight_2(w_2_8),.output_1(output_Radix_3_1_2),.output_2(output_Radix_3_2_2)); 
-Radix_2 #(.WIDTH(WIDTH)) Radix_4_2 (.input_1(output_Radix_2_2_1),.input_2(output_Radix_4_2_1),.weight_1(18'd1),.weight_2(w_3_8),.output_1(output_Radix_4_1_2),.output_2(output_Radix_4_2_2)); 
+Radix_2 #(.WIDTH(WIDTH)) Radix_4_2 (.input_1(output_Radix_2_2_1),.input_2(output_Radix_4_2_1),.weight_1(18'd1),.weight_2(psi_2_stage3),.output_1(output_Radix_4_1_2),.output_2(output_Radix_4_2_2)); 
 
+// Mux choosing weight for second stage stage
+mux_2_1 #(.WIDTH(WIDTH)) mux_weight_1_stage2(.input_1(18'd1),.input_2(w_1_8),.select(NTT_INTT_mode),.out(psi_3_stage2));
+mux_2_1 #(.WIDTH(WIDTH)) mux_weight_2_stage2(.input_1(w_2_8),.input_2(w_3_8),.select(NTT_INTT_mode),.out(psi_4_stage2));
+
+// Mux choosing weight for second third stage
+mux_2_1 #(.WIDTH(WIDTH)) mux_weight_1_stage3(.input_1(w_1_8),.input_2(18'd1),.select(NTT_INTT_mode),.out(psi_1_stage3));
+mux_2_1 #(.WIDTH(WIDTH)) mux_weight_2_stage3(.input_1(w_3_8),.input_2(w_2_8),.select(NTT_INTT_mode),.out(psi_2_stage3));
 
 //mux choosing output
 
@@ -172,12 +187,12 @@ mux_2_1 #(.WIDTH(WIDTH)) mux_23(.input_1(psi_8),.input_2(18'd1),.select(~NTT_INT
 
 //multplication for intt
 mult #(.WIDTH(WIDTH)) mult_0_intt (.input_1(output_1_temp),.input_2(psi_1_temp_INTT),.output_mult(output_1_temp_1));
-mult #(.WIDTH(WIDTH)) mult_1_intt (.input_1(output_2_temp),.input_2(psi_2_temp_INTT),.output_mult(output_2_temp_2));
-mult #(.WIDTH(WIDTH)) mult_2_intt (.input_1(output_3_temp),.input_2(psi_3_temp_INTT),.output_mult(output_3_temp_3));
-mult #(.WIDTH(WIDTH)) mult_3_intt (.input_1(output_4_temp),.input_2(psi_4_temp_INTT),.output_mult(output_4_temp_4));
-mult #(.WIDTH(WIDTH)) mult_4_intt (.input_1(output_5_temp),.input_2(psi_5_temp_INTT),.output_mult(output_5_temp_5));
-mult #(.WIDTH(WIDTH)) mult_5_intt (.input_1(output_6_temp),.input_2(psi_6_temp_INTT),.output_mult(output_6_temp_6));
-mult #(.WIDTH(WIDTH)) mult_6_intt (.input_1(output_7_temp),.input_2(psi_7_temp_INTT),.output_mult(output_7_temp_7));
+mult #(.WIDTH(WIDTH)) mult_1_intt (.input_1(output_2_temp),.input_2(psi_5_temp_INTT),.output_mult(output_2_temp_2));
+mult #(.WIDTH(WIDTH)) mult_2_intt (.input_1(output_3_temp),.input_2(psi_2_temp_INTT),.output_mult(output_3_temp_3));
+mult #(.WIDTH(WIDTH)) mult_3_intt (.input_1(output_4_temp),.input_2(psi_6_temp_INTT),.output_mult(output_4_temp_4));
+mult #(.WIDTH(WIDTH)) mult_4_intt (.input_1(output_5_temp),.input_2(psi_3_temp_INTT),.output_mult(output_5_temp_5));
+mult #(.WIDTH(WIDTH)) mult_5_intt (.input_1(output_6_temp),.input_2(psi_7_temp_INTT),.output_mult(output_6_temp_6));
+mult #(.WIDTH(WIDTH)) mult_6_intt (.input_1(output_7_temp),.input_2(psi_4_temp_INTT),.output_mult(output_7_temp_7));
 mult #(.WIDTH(WIDTH)) mult_7_intt (.input_1(output_8_temp),.input_2(psi_8_temp_INTT),.output_mult(output_8_temp_8));
 
 modulo #(.WIDTH(WIDTH)) mod_out_1 (.input_mod(output_1_temp_1),.output_mod(output_1));

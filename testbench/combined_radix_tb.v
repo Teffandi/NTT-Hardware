@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-module radix8_combined_tb ();
+module combined_radix_tb ();
 	/****************************************************************************
     * Parameter
     ***************************************************************************/
@@ -55,11 +55,10 @@ module radix8_combined_tb ();
    Combined_Radix #(.WIDTH(WIDTH)) uut (
       .input_1		(in1), .input_2		(in2), .input_3		(in3), .input_4		(in4),
 		.input_5		(in5), .input_6		(in6), .input_7		(in7), .input_8		(in8),
+      
 		.psi_1		(psi1),.psi_2			(psi2),.psi_3			(psi3),.psi_4			(psi4),
-		.psi_5		(psi5),
-		.psi_6		(psi6),
-		.psi_7		(psi7),
-		.psi_8		(psi8),
+		.psi_5		(psi5),.psi_6		   (psi6),.psi_7		   (psi7),.psi_8		   (psi8),
+
 		.w_0_8		(w0),
 		.w_1_8		(w1),
 		.w_2_8		(w2),
@@ -84,7 +83,7 @@ module radix8_combined_tb ();
 
    initial begin
 		$dumpfile("wave.vcd");
-		$dumpvars(0,radix8_combined_tb);
+		$dumpvars(0,combined_radix_tb);
 
 		in1 = 0; in2 = 4; in3 = 2; in4 = 6;
 		in5 = 1; in6 = 5; in7 = 3; in8 = 7;
@@ -102,14 +101,47 @@ module radix8_combined_tb ();
 
 		#1;
 	
-		$display ("Result 1: %b (%d) ", out1%prime, out1%prime);
-		$display ("Result 2: %b (%d) ", out2%prime, out2%prime);
-		$display ("Result 3: %b (%d) ", out3%prime, out3%prime);
-		$display ("Result 4: %b (%d) ", out4%prime, out4%prime);
-		$display ("Result 5: %b (%d) ", out5%prime, out5%prime);
-		$display ("Result 6: %b (%d) ", out6%prime, out6%prime);
-		$display ("Result 7: %b (%d) ", out7%prime, out7%prime);
-		$display ("Result 8: %b (%d) ", out8%prime, out8%prime);
+		$display ("Result 1: %d ", out1);
+		$display ("Result 2: %d ", out2);
+		$display ("Result 3: %d ", out3);
+		$display ("Result 4: %d ", out4);
+		$display ("Result 5: %d ", out5);
+		$display ("Result 6: %d ", out6);
+		$display ("Result 7: %d ", out7);
+		$display ("Result 8: %d ", out8);
+      $display ("Finished NTT\n============\n");
+      #1;
+
+      in1 = 14562; in5 = 63638; 
+      in3 = 59790; in7 = 10492;
+		in2 = 36702; in6 = 16427; 
+      in4 = 24116; in8 = 36421;
+
+      // [14562, 63638, 59790, 10492, 36702, 16427, 24116, 36421]
+		
+		psi1 = 1;      psi5 = 65281;
+		psi2 = 49153;  psi6 = 65473;
+		psi5 = 61441;  psi6 = 65521;
+		psi7 = 64513;  psi8 = 65533;
+
+		w1 = 61441; w2 = 65281; w3 = 65521;
+
+      select_mode = 2'b10;
+      NTT_INTT_mode = 1'b1;
+
+      #1;
+	
+		$display ("Result 1: %d ", out1);
+		$display ("Result 2: %d ", out2);
+		$display ("Result 3: %d ", out3);
+		$display ("Result 4: %d ", out4);
+		$display ("Result 5: %d ", out5);
+		$display ("Result 6: %d ", out6);
+		$display ("Result 7: %d ", out7);
+		$display ("Result 8: %d ", out8);
+      $display ("Finished INTT\n============\n");
+
+      #1;
 
 		
       $finish;
