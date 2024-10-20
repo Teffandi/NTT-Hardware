@@ -16,8 +16,8 @@ wire [WIDTH-1:0] temp_signal;
 assign temp_signal = input_mod[m-1:0] - (input_mod>>m);
 
 always@(*) begin
-
-    if((prime>temp_signal)&&(temp_signal>=0)) output_mod = temp_signal;
+    if(temp_signal[17] == 1'b1) output_mod = temp_signal + prime;
+    else if((prime>temp_signal)&&(temp_signal>=0)) output_mod = temp_signal;
     else if(prime<=temp_signal) output_mod = temp_signal - prime;
     else output_mod = temp_signal+prime;
 end
